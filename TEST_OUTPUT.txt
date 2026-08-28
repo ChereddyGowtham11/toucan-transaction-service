@@ -1,0 +1,97 @@
+﻿[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running com.example.transactionstarter.TransactionApiTests
+18:17:23.628 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.example.transactionstarter.TransactionApiTests]: TransactionApiTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+18:17:23.890 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.example.transactionstarter.TransactionStarterApplication for test class com.example.transactionstarter.TransactionApiTests
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.5.5)
+
+2026-08-28T18:17:24.793+05:30  INFO 35984 --- [           main] c.e.t.TransactionApiTests                : Starting TransactionApiTests using Java 23 with PID 35984 (started by chgow in C:\Users\chgow\toucan-springboot-starter)
+2026-08-28T18:17:24.796+05:30  INFO 35984 --- [           main] c.e.t.TransactionApiTests                : No active profile set, falling back to 1 default profile: "default"
+2026-08-28T18:17:25.853+05:30  INFO 35984 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-08-28T18:17:25.925+05:30  INFO 35984 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 58 ms. Found 1 JPA repository interface.
+2026-08-28T18:17:26.878+05:30  INFO 35984 --- [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-08-28T18:17:27.020+05:30  INFO 35984 --- [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.26.Final
+2026-08-28T18:17:27.121+05:30  INFO 35984 --- [           main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-08-28T18:17:27.827+05:30  INFO 35984 --- [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-08-28T18:17:27.885+05:30  INFO 35984 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-08-28T18:17:28.222+05:30  INFO 35984 --- [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:transactions user=SA
+2026-08-28T18:17:28.226+05:30  INFO 35984 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-08-28T18:17:28.339+05:30  INFO 35984 --- [           main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 2.3.232
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-08-28T18:17:29.679+05:30  INFO 35984 --- [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-08-28T18:17:29.734+05:30  INFO 35984 --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-08-28T18:17:31.596+05:30  INFO 35984 --- [           main] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:transactions'
+2026-08-28T18:17:31.869+05:30  INFO 35984 --- [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2026-08-28T18:17:31.870+05:30  INFO 35984 --- [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-08-28T18:17:31.877+05:30  INFO 35984 --- [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 3 ms
+2026-08-28T18:17:31.987+05:30  INFO 35984 --- [           main] c.e.t.TransactionApiTests                : Started TransactionApiTests in 7.793 seconds (process running for 9.62)
+Mockito is currently self-attaching to enable the inline-mock-maker. This will no longer work in future releases of the JDK. Please add Mockito as an agent to your build as described in Mockito's documentation: https://javadoc.io/doc/org.mockito/mockito-core/latest/org.mockito/org/mockito/Mockito.html#0.3
+WARNING: A Java agent has been loaded dynamically (C:\Users\chgow\.m2\repository\net\bytebuddy\byte-buddy-agent\1.17.7\byte-buddy-agent-1.17.7.jar)
+WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
+WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
+WARNING: Dynamic loading of agents will be disallowed by default in a future release
+Java HotSpot(TM) 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+[INFO] Tests run: 14, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 17.10 s -- in com.example.transactionstarter.TransactionApiTests
+[INFO] Running com.example.transactionstarter.TransactionStarterApplicationTests
+2026-08-28T18:17:40.572+05:30  INFO 35984 --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.example.transactionstarter.TransactionStarterApplicationTests]: TransactionStarterApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-08-28T18:17:40.583+05:30  INFO 35984 --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.example.transactionstarter.TransactionStarterApplication for test class com.example.transactionstarter.TransactionStarterApplicationTests
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.5.5)
+
+2026-08-28T18:17:40.877+05:30  INFO 35984 --- [           main] c.e.t.TransactionStarterApplicationTests : Starting TransactionStarterApplicationTests using Java 23 with PID 35984 (started by chgow in C:\Users\chgow\toucan-springboot-starter)
+2026-08-28T18:17:40.880+05:30  INFO 35984 --- [           main] c.e.t.TransactionStarterApplicationTests : No active profile set, falling back to 1 default profile: "default"
+2026-08-28T18:17:41.393+05:30  INFO 35984 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-08-28T18:17:41.426+05:30  INFO 35984 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 29 ms. Found 1 JPA repository interface.
+2026-08-28T18:17:41.676+05:30  INFO 35984 --- [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-08-28T18:17:41.687+05:30  INFO 35984 --- [           main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-08-28T18:17:41.725+05:30  INFO 35984 --- [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-08-28T18:17:41.734+05:30  INFO 35984 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Starting...
+2026-08-28T18:17:41.738+05:30  INFO 35984 --- [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-2 - Added connection conn10: url=jdbc:h2:mem:transactions user=SA
+2026-08-28T18:17:41.739+05:30  INFO 35984 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Start completed.
+2026-08-28T18:17:41.741+05:30  INFO 35984 --- [           main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-2)']
+	Database driver: undefined/unknown
+	Database version: 2.3.232
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-08-28T18:17:41.865+05:30  INFO 35984 --- [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-08-28T18:17:41.879+05:30  INFO 35984 --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-08-28T18:17:42.223+05:30  INFO 35984 --- [           main] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:transactions'
+2026-08-28T18:17:42.281+05:30  INFO 35984 --- [           main] c.e.t.TransactionStarterApplicationTests : Started TransactionStarterApplicationTests in 1.664 seconds (process running for 19.914)
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.735 s -- in com.example.transactionstarter.TransactionStarterApplicationTests
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 15, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  26.288 s
+[INFO] Finished at: 2026-08-28T18:17:42+05:30
+[INFO] ------------------------------------------------------------------------
+
