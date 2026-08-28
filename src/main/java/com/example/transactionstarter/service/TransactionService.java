@@ -2,6 +2,7 @@ package com.example.transactionstarter.service;
 
 import com.example.transactionstarter.dto.CreateTransactionRequest;
 import com.example.transactionstarter.exception.DuplicateTransactionException;
+import com.example.transactionstarter.exception.TransactionNotFoundException;
 import com.example.transactionstarter.model.Transaction;
 import com.example.transactionstarter.model.TransactionStatus;
 import com.example.transactionstarter.repository.TransactionRepository;
@@ -31,5 +32,10 @@ public class TransactionService {
                 TransactionStatus.PENDING,
                 Instant.now());
         return repository.save(transaction);
+    }
+
+    public Transaction getTransaction(String transactionId) {
+        return repository.findById(transactionId)
+                .orElseThrow(() -> new TransactionNotFoundException(transactionId));
     }
 }

@@ -46,6 +46,12 @@ public class GlobalExceptionHandler {
         return ResponseEntity.badRequest().body(ErrorResponse.of(400, message));
     }
 
+    @ExceptionHandler(TransactionNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleNotFound(TransactionNotFoundException ex) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(ErrorResponse.of(404, ex.getMessage()));
+    }
+
     @ExceptionHandler(DuplicateTransactionException.class)
     public ResponseEntity<ErrorResponse> handleDuplicate(DuplicateTransactionException ex) {
         return ResponseEntity.status(HttpStatus.CONFLICT)

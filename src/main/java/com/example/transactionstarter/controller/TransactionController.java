@@ -5,6 +5,8 @@ import com.example.transactionstarter.dto.TransactionResponse;
 import com.example.transactionstarter.service.TransactionService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,5 +27,10 @@ public class TransactionController {
     @ResponseStatus(HttpStatus.CREATED)
     public TransactionResponse create(@Valid @RequestBody CreateTransactionRequest request) {
         return TransactionResponse.from(service.createTransaction(request));
+    }
+
+    @GetMapping("/transactions/{transactionId}")
+    public TransactionResponse get(@PathVariable String transactionId) {
+        return TransactionResponse.from(service.getTransaction(transactionId));
     }
 }

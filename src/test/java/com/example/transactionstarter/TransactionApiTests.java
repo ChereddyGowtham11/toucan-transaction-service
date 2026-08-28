@@ -9,6 +9,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.transaction.annotation.Transactional;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -107,5 +108,26 @@ class TransactionApiTests {
         postTransaction(transactionJson("TXN-6", "CUST-2", "999", "USD", "REFUND"))
                 .andExpect(status().isConflict())
                 .andExpect(jsonPath("$.message").value("Transaction 'TXN-6' already exists"));
+    }
+
+    // --- Get transaction ---
+
+    @Test
+    void getTransaction_existingId_returnsTransaction() throws Exception {
+        postTransaction(transactionJson("TXN-10", "CUST-1", "42.00", "EUR", "REFUND"))
+                .andExpect(status().isCreated());
+
+        mockMvc.perform(get("/api/transactions/TXN-10"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.transactionId").value("TXN-10"))
+                .andExpect(jsonPath("$.type").value("REFUND"))
+                .andExpect(jsonPath("$.status").value("PENDING"));
+    }
+
+    @Test
+    void getTransaction_unknownId_returnsNotFound() throws Exception {
+        mockMvc.perform(get("/api/transactions/NO-SUCH-TXN"))
+                .andExpect(status().isNotFound())
+                .andExpect(jsonPath("$.message").value("Transaction 'NO-SUCH-TXN' not found"));
     }
 }
