@@ -10,6 +10,7 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.transaction.annotation.Transactional;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -129,5 +130,55 @@ class TransactionApiTests {
         mockMvc.perform(get("/api/transactions/NO-SUCH-TXN"))
                 .andExpect(status().isNotFound())
                 .andExpect(jsonPath("$.message").value("Transaction 'NO-SUCH-TXN' not found"));
+    }
+
+    // --- Update transaction status ---
+
+    private ResultActions patchStatus(String transactionId, String statusJson) throws Exception {
+        return mockMvc.perform(patch("/api/transactions/" + transactionId + "/status")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{\"status\": " + statusJson + "}"));
+    }
+
+    @Test
+    void updateStatus_pendingToCompleted_succeeds() throws Exception {
+        postTransaction(transactionJson("TXN-20", "CUST-1", "10", "INR", "PAYMENT"))
+                .andExpect(status().isCreated());
+
+        patchStatus("TXN-20", "\"COMPLETED\"")
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.status").value("COMPLETED"));
+
+        // the change is persisted, not just echoed back
+        mockMvc.perform(get("/api/transactions/TXN-20"))
+                .andExpect(jsonPath("$.status").value("COMPLETED"));
+    }
+
+    @Test
+    void updateStatus_fromTerminalStatus_isRejected() throws Exception {
+        postTransaction(transactionJson("TXN-21", "CUST-1", "10", "INR", "PAYMENT"))
+                .andExpect(status().isCreated());
+        patchStatus("TXN-21", "\"COMPLETED\"").andExpect(status().isOk());
+
+        patchStatus("TXN-21", "\"PENDING\"")
+                .andExpect(status().isConflict())
+                .andExpect(jsonPath("$.message").value("Cannot change status from COMPLETED to PENDING"));
+    }
+
+    @Test
+    void updateStatus_unknownTransaction_returnsNotFound() throws Exception {
+        patchStatus("NO-SUCH-TXN", "\"COMPLETED\"")
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    void updateStatus_unknownStatusValue_isRejected() throws Exception {
+        postTransaction(transactionJson("TXN-22", "CUST-1", "10", "INR", "PAYMENT"))
+                .andExpect(status().isCreated());
+
+        patchStatus("TXN-22", "\"CANCELLED\"")
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.message").value(
+                        "Invalid value 'CANCELLED' for 'status'. Allowed values: [PENDING, COMPLETED, FAILED]"));
     }
 }

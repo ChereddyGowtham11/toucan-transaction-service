@@ -2,11 +2,13 @@ package com.example.transactionstarter.service;
 
 import com.example.transactionstarter.dto.CreateTransactionRequest;
 import com.example.transactionstarter.exception.DuplicateTransactionException;
+import com.example.transactionstarter.exception.InvalidStatusTransitionException;
 import com.example.transactionstarter.exception.TransactionNotFoundException;
 import com.example.transactionstarter.model.Transaction;
 import com.example.transactionstarter.model.TransactionStatus;
 import com.example.transactionstarter.repository.TransactionRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
 
@@ -37,5 +39,21 @@ public class TransactionService {
     public Transaction getTransaction(String transactionId) {
         return repository.findById(transactionId)
                 .orElseThrow(() -> new TransactionNotFoundException(transactionId));
+    }
+
+    /**
+     * The allowed transitions are defined on TransactionStatus: only
+     * PENDING -> COMPLETED and PENDING -> FAILED are legal. Inside the
+     * transaction the loaded entity is managed, so changing the status is
+     * flushed to the database on commit without an explicit save call.
+     */
+    @Transactional
+    public Transaction updateStatus(String transactionId, TransactionStatus newStatus) {
+        Transaction transaction = getTransaction(transactionId);
+        if (!transaction.getStatus().canTransitionTo(newStatus)) {
+            throw new InvalidStatusTransitionException(transaction.getStatus(), newStatus);
+        }
+        transaction.setStatus(newStatus);
+        return transaction;
     }
 }
