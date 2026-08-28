@@ -9,6 +9,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.transaction.annotation.Transactional;
 
+import static org.hamcrest.Matchers.everyItem;
+import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -180,5 +182,29 @@ class TransactionApiTests {
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.message").value(
                         "Invalid value 'CANCELLED' for 'status'. Allowed values: [PENDING, COMPLETED, FAILED]"));
+    }
+
+    // --- Get customer transactions ---
+
+    @Test
+    void customerTransactions_returnsOnlyThatCustomersTransactions() throws Exception {
+        postTransaction(transactionJson("TXN-30", "CUST-A", "10", "INR", "PAYMENT"))
+                .andExpect(status().isCreated());
+        postTransaction(transactionJson("TXN-31", "CUST-A", "20", "USD", "TRANSFER"))
+                .andExpect(status().isCreated());
+        postTransaction(transactionJson("TXN-32", "CUST-B", "30", "EUR", "PAYMENT"))
+                .andExpect(status().isCreated());
+
+        mockMvc.perform(get("/api/customers/CUST-A/transactions"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.length()").value(2))
+                .andExpect(jsonPath("$[*].customerId", everyItem(is("CUST-A"))));
+    }
+
+    @Test
+    void customerTransactions_unknownCustomer_returnsEmptyList() throws Exception {
+        mockMvc.perform(get("/api/customers/NO-SUCH-CUSTOMER/transactions"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.length()").value(0));
     }
 }

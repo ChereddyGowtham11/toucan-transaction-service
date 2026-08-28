@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
+import java.util.List;
 
 @Service
 public class TransactionService {
@@ -55,5 +56,15 @@ public class TransactionService {
         }
         transaction.setStatus(newStatus);
         return transaction;
+    }
+
+    /**
+     * A customer with no transactions gets an empty list, not an error:
+     * the collection legitimately exists and is empty, and this service
+     * does not own customer records so it cannot tell an unknown customer
+     * apart from one who has not transacted yet.
+     */
+    public List<Transaction> getCustomerTransactions(String customerId) {
+        return repository.findByCustomerIdOrderByCreatedAtDesc(customerId);
     }
 }

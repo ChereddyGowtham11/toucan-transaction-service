@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api")
 public class TransactionController {
@@ -40,5 +42,12 @@ public class TransactionController {
     public TransactionResponse updateStatus(@PathVariable String transactionId,
                                             @Valid @RequestBody UpdateStatusRequest request) {
         return TransactionResponse.from(service.updateStatus(transactionId, request.status()));
+    }
+
+    @GetMapping("/customers/{customerId}/transactions")
+    public List<TransactionResponse> customerTransactions(@PathVariable String customerId) {
+        return service.getCustomerTransactions(customerId).stream()
+                .map(TransactionResponse::from)
+                .toList();
     }
 }
